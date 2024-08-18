@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="{{ get_url(path='index.css') | safe }}" />
+        <script>
+            function __br_set_classes(class_suffix, description_string) {
+                const cn = "--br-" + class_suffix;
+                for (const ds of description_string.split(',')) {
+                    const [b, id_suffix] = ds[0] != '!' ? [true, ds] : [false, ds.substr(1)];
+                    const el = document.getElementById("--br-" + id_suffix);
+                    if (b)
+                        el.classList.add(cn);
+                    else
+                        el.classList.remove(cn);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div id="--br-content-pane">
+            <iframe id="--br-background" src="{{ get_url(path='__theme/wallpaper.html') }}" sandbox="allow-scripts"></iframe>
+            <div>
+                <article>
+                    {% block content -%}
+                    {%- endblock content %}
+                </article>
+            </div>
+            <iframe id="--br-curtain" sandbox="allow-scripts"></iframe>
+        </div>
+        <div id="--br-overlay">
+            <div id="--br-settings-container">
+                <div id="--br-navigation-pane">
+                    NAV
+                </div>
+                <div id="--br-theme-pane">
+                    THM
+                </div>
+            </div>
+            <div id="--br-menu-container">
+                <div id="--br-reading-view-menu" class="--br-focused">
+                    <button onclick="
+                        __br_set_classes('focused', '!reading-view-menu,settings-view-menu,navigation-pane,!theme-pane');
+                        __br_set_classes('checked', 'navigation-button,!theme-button');
+                        ">
+                        <img src="{{ get_url(path='__theme/settings.png') | safe }}" />
+                    </button>
+                </div>
+                <div id="--br-settings-view-menu">
+                    <button id="--br-navigation-button"
+                        onclick="
+                        __br_set_classes('focused', '!reading-view-menu,settings-view-menu,navigation-pane,!theme-pane');
+                        __br_set_classes('checked', 'navigation-button,!theme-button');
+                        ">
+                        <img src="{{ get_url(path='__theme/navigation.png') | safe }}" />
+                    </button>
+                    <button onclick="
+                        __br_set_classes('focused', 'reading-view-menu,!settings-view-menu,!navigation-pane,!theme-pane');
+                        __br_set_classes('checked', '!navigation-button,!theme-button');
+                        ">
+                        <img src="{{ get_url(path='__theme/content.png') | safe }}" />
+                    </button>
+                    <button id="--br-theme-button"
+                        onclick="
+                        __br_set_classes('focused', '!reading-view-menu,settings-view-menu,!navigation-pane,theme-pane');
+                        __br_set_classes('checked', '!navigation-button,theme-button');
+                        ">
+                        <img src="{{ get_url(path='__theme/theme.png') | safe }}" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

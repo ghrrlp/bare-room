@@ -1,0 +1,122 @@
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: wrap;
+  overflow-y: auto;
+}
+
+#--br-content-pane {
+  display: grid;
+  grid-template: 1fr / 1fr;
+  place-items: center;
+  height: 100%;
+  &>* {
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+    border: none;
+    width: 100%;
+    height: 100%;
+  }
+  &>iframe {
+    pointer-events: none;
+    user-select: none;
+  }
+}
+
+#--br-overlay {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: stretch;
+  align-content: stretch;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+#--br-menu-container {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: .5in;
+  display: grid;
+  grid-template: 1fr / 1fr;
+  place-items: center;
+  pointer-events: none;
+  user-select: none;
+  &>* {
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: .25in;
+    width: 100vw;
+    pointer-events: none;
+    user-select: none;
+    &.--br-focused>* {
+      pointer-events: auto;
+      opacity: 100%;
+    }
+    &>* {
+      pointer-events: none;
+      user-select: none;
+      opacity: 0%;
+      flex-grow: 0;
+      flex-shrink: 1;
+      flex-basis: .5in;
+      background-color: transparent;
+      border: none;
+      margin: 0;
+      padding: 0;
+      padding-block: 0;
+      padding-inline: 0;
+      max-height: none;
+      &>img {
+        image-rendering: pixelated;
+        width: 100%;
+        transition: transform .2s ease-out;
+      }
+      &:hover>img {
+        transform: translate(0, -12.5%);
+      }
+      &.--br-checked>img {
+        transform: translate(0, -25%);
+      }
+      &.--br-checked:hover>img {
+        transform: translate(0, -31.25%);
+      }
+    }
+  }
+}
+
+#--br-settings-container {
+  flex-grow: 1;
+  flex-shrink: 1;
+  box-sizing: border-box;
+  border: 1px solid blue;
+  display: grid;
+  grid-template: 1fr / 1fr;
+  place-items: center;
+  &>* {
+    grid-column: 1 / 1;
+    grid-row: 1 / 1;
+    width: 100%;
+    height: 100%;
+    display: none;
+    pointer-events: auto;
+    user-select: auto;
+    &.--br-focused {
+      display: block;
+    }
+    box-sizing: border-box;
+    border: 1px solid aqua;
+  }
+}
